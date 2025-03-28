@@ -24,7 +24,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // GET: api/Entregas
         [HttpGet]
-       // [Authorize]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Entregas>>> GetEntregas()
         {
            return await _context.Entregas.Where(e => e.estaActivo == true ).Include(e => e.RenglonesEntregas).ToListAsync();
@@ -115,7 +115,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // POST: api/Entregas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<Entregas>> PostEntregas(Entregas entregas)
         {
             entregas.estaActivo = true;
@@ -150,6 +150,19 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
             return NoContent();
         }
+
+        // Return the last NumeroEntrega from the last Entrega
+        [HttpGet("Last")]
+        [Authorize]
+        public async Task<ActionResult<int>> GetLastEntrega()
+        {
+            var lastEntrega = await _context.Entregas.OrderByDescending(e => e.NroEntregaManual).FirstOrDefaultAsync();
+            if(lastEntrega == null)
+            {
+                return 0;
+            }
+            return lastEntrega.NroEntregaManual;
+        }   
 
 
         private bool EntregasExists(int id)

@@ -286,3 +286,4 @@ C:\Users\gonza\Documents\SistemasTrabajo\FondoUnicoSistemaCompleto\FondoUnicoSis
 C:\Users\gonza\Documents\SistemasTrabajo\FondoUnicoSistemaCompleto\FondoUnicoSistemaCompleto\obj\Debug\net8.0\FondoUnicoSistemaCompleto.pdb
 C:\Users\gonza\Documents\SistemasTrabajo\FondoUnicoSistemaCompleto\FondoUnicoSistemaCompleto\obj\Debug\net8.0\FondoUnicoSistemaCompleto.genruntimeconfig.cache
 C:\Users\gonza\Documents\SistemasTrabajo\FondoUnicoSistemaCompleto\FondoUnicoSistemaCompleto\obj\Debug\net8.0\ref\FondoUnicoSistemaCompleto.dll
+C:\Users\gonza\Documents\SistemasTrabajo\FondoUnicoSistemaCompleto\FondoUnicoSistemaCompleto\obj\Debug\net8.0\FondoUnicoSistemaCompleto.sourcelink.json
