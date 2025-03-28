@@ -9,6 +9,5 @@
         public string Nombre_de_usuario { get; set; }
         public string Rol { get; set; }
         public string DNI { get; set; }
-        public string Unidad { get; set; }
     }
 }

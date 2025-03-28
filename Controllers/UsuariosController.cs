@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
+using Microsoft.CodeAnalysis.Host;
 
 
 namespace FondoUnicoSistemaCompleto.Controllers
@@ -99,7 +100,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
                       Usuario_repo =  usuario.Data.Id.ToString(),
                       Nombre_de_usuario =  usuario.Data.Usuario,
                       DNI = request.Dni, 
-                      Unidad = request.Unidad
                   };
 
                   _context.Usuario.Add(AltaUsuarioNuevo);
@@ -129,7 +129,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
                         Usuario_repo =  usuario.Data.Id.ToString(),
                         Nombre_de_usuario =  usuario.Data.Usuario,
                         DNI = request.Dni,
-                        Unidad = request.Unidad
                     };
 
 
@@ -175,22 +174,20 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         }   
 
-        [HttpGet("buscar-usuarios/{rol}/{unidad}")]
+        [HttpGet("buscar-usuarios/{rol}")]
         [Authorize]
-        public async Task<IActionResult> BuscarUsuarios(string rol, string unidad )
+        public async Task<IActionResult> BuscarUsuarios(string rol )
         {
             try
             {
                 bool rolIngresado = rol != "no_ingresado";
-                bool unidadIngresada = unidad != "no_ingresado";
 
                 var query = _context.Usuario.AsQueryable();
 
                 if(rolIngresado)
                     query = query.Where(u => u.Rol == rol);
 
-                if(unidadIngresada)
-                    query = query.Where(u => u.Unidad == unidad);
+           
 
 
                 return Ok(await query.ToListAsync());
@@ -341,17 +338,24 @@ namespace FondoUnicoSistemaCompleto.Controllers
         [HttpDelete("delete-usuario/{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
+        
+            
+          var usuario = await _context.Usuario.FindAsync(id);
+
+ 
             if (usuario == null)
             {
                 return NotFound();
             }
+           
+    
 
             _context.Usuario.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        
+            }
 
         [HttpPut("update-usuario/{id}")]
        // Necesito que solo tome Rol y Unidad y solo modifique eso de la BD
@@ -364,7 +368,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
             }
 
             usuario.Rol = request.Rol;
-            usuario.Unidad = request.Unidad;
 
             await _context.SaveChangesAsync();
 
@@ -399,7 +402,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
         public class UsuarioRequestEdit{ 
 
             public string Rol { get; set; }
-            public string Unidad { get; set; }
         }
 
         public class UsuarioRequest
@@ -407,7 +409,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
             public string Dni { get; set; }
             public string Rol { get; set; }
             public string tipoUsuario { get; set; }
-            public string Unidad { get; set; }
         }
 
         public class UsuarioPoliciaResponse {          
