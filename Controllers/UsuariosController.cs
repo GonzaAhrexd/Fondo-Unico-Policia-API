@@ -83,7 +83,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
                 });
 
 
-                if(usuario?.Data == null)
+                if(usuario?.Data == null || usuario?.Data.Civil == null)
                     {
 
                     return NotFound(new { message = "Usuario no encontrado" });

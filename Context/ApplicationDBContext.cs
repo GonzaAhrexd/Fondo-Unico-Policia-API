@@ -23,5 +23,6 @@ namespace FondoUnicoSistemaCompleto.Context
         public DbSet<FondoUnicoSistemaCompleto.Models.Unidades> Unidades { get; set; } = default!;
         public DbSet<RenglonesEntrega> RenglonesEntregas { get; set; }
         public DbSet<Entregas> Entregas { get; set; }
+        public DbSet<FondoUnicoSistemaCompleto.Models.Depositos> Depositos { get; set; } = default!;
     }
 }

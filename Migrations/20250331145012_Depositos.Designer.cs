@@ -4,6 +4,7 @@ using FondoUnicoSistemaCompleto.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FondoUnicoSistemaCompleto.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250331145012_Depositos")]
+    partial class Depositos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,46 +40,6 @@ namespace FondoUnicoSistemaCompleto.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bancos");
-                });
-
-            modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Depositos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Banco")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Boleta")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Cuenta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("Importe")
-                        .HasColumnType("real");
-
-                    b.Property<int>("NroDeposito")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PeriodoArqueo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Unidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Depositos");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Localidades", b =>
