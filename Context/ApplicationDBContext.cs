@@ -24,5 +24,6 @@ namespace FondoUnicoSistemaCompleto.Context
         public DbSet<RenglonesEntrega> RenglonesEntregas { get; set; }
         public DbSet<Entregas> Entregas { get; set; }
         public DbSet<FondoUnicoSistemaCompleto.Models.Depositos> Depositos { get; set; } = default!;
+        public DbSet<FondoUnicoSistemaCompleto.Models.Verificaciones> Verificaciones { get; set; } = default!;
     }
 }

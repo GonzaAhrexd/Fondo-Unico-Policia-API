@@ -48,20 +48,30 @@ namespace FondoUnicoSistemaCompleto.Controllers
         }
         // Agrega una petición que sea del formato api/Entregas/Unidad/FechaInicio/FechaFinal, es decir que se pueda pasar Unidad, FechaInicio y FechaFinal en los params
 
-        [HttpGet("{unidad}/{fechaInicio}/{fechaFinal}")]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<Entregas>>> GetEntregasPorUnidadFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal)
+        [HttpGet("{unidad}/{fechaInicio}/{fechaFinal}/{tipoFormulario?}")]
+       // [Authorize]
+        public async Task<ActionResult<IEnumerable<Entregas>>> GetEntregasPorUnidadFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal, string? tipoFormulario = null)
         {
+            var query = _context.Entregas
+                .Include(e => e.RenglonesEntregas)
+                .Where(e => e.Fecha >= fechaInicio &&
+                           e.Fecha <= fechaFinal &&
+                           e.estaActivo == true);
 
-            // Si Unidad es Listar Todo, no filtrar por Unidad
-            if(unidad == "Listar todo")
+            // Filtro por unidad si no es "Listar todo"
+            if(unidad != "Listar todo")
             {
-                return await _context.Entregas.Include(e => e.RenglonesEntregas).Where(e => e.Fecha >= fechaInicio && e.Fecha <= fechaFinal && e.estaActivo == true).ToListAsync();
+                query = query.Where(e => e.Unidad == unidad);
             }
 
-            return await _context.Entregas.Include(e => e.RenglonesEntregas).Where(e => e.Unidad == unidad && e.Fecha >= fechaInicio && e.Fecha <= fechaFinal && e.estaActivo == true).ToListAsync();
-        }
+            // Filtro por tipo de formulario si se especificó
+            if(tipoFormulario != "Listar todo")
+            {
+                query = query.Where(e => e.RenglonesEntregas.Any(r => r.TipoFormulario == tipoFormulario));
+            }
 
+            return await query.ToListAsync();
+        }
 
         // PUT: api/Entregas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
