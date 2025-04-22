@@ -131,6 +131,25 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
             return NoContent();
         }
 
+
+        [HttpPut("/setear-fondo")]
+        // pon todas las unidades en el campo FondoUnico en true y el de Verificaciones en False
+        public async Task<IActionResult> SetearFondoUnico()
+        {
+            var unidades = await _context.Unidades.ToListAsync();
+
+            foreach (var unidad in unidades)
+            {
+                unidad.FondoUnico = true;
+                unidad.Verificaciones = false;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
         private bool UnidadesExists(int id)
         {
             return _context.Unidades.Any(e => e.Id == id);

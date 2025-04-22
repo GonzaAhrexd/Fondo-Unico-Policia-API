@@ -117,7 +117,22 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
             return Ok(verificaciones); // Devuelve un 200 OK con los resultados
         }
+        [HttpPut("anular/{id}")]
+        [Authorize]
+        public async Task<IActionResult> AnularVerificacion(int id)
+        {
+            var verificaciones = await _context.Verificaciones.FindAsync(id);
+            if (verificaciones == null)
+            {
+                return NotFound();
+            }
 
+            verificaciones.estaAnulado = !(verificaciones.estaAnulado);
+            _context.Verificaciones.Update(verificaciones);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
         // GET: api/Verificaciones/5
         [HttpGet("{id}")]
         [Authorize]
@@ -169,15 +184,32 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // POST: api/Verificaciones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize]
-        public async Task<ActionResult<Verificaciones>> PostVerificaciones(Verificaciones verificaciones)
+        public async Task<ActionResult<IEnumerable<Verificaciones>>> PostVerificaciones([FromBody] Verificaciones[] verificaciones)
         {
-            verificaciones.estaActivo = true;
+            // Validar que el array no esté vacío
+            if(verificaciones == null || !verificaciones.Any())
+            {
+                return BadRequest("El array de verificaciones es requerido y no puede estar vacío.");
+            }
 
-            _context.Verificaciones.Add(verificaciones);
+            var createdVerificaciones = new List<Verificaciones>();
+
+            foreach(var verificacion in verificaciones)
+            {
+                verificacion.estaActivo = true; // Mantener la lógica original
+                _context.Verificaciones.Add(verificacion);
+                createdVerificaciones.Add(verificacion);
+            }
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVerificaciones", new { id = verificaciones.Id }, verificaciones);
+            return CreatedAtAction("GetVerificaciones", new { id = createdVerificaciones.Select(v => v.Id) }, createdVerificaciones);
+        }
+
+        // Clase para mapear el cuerpo de la solicitud
+        public class VerificacionesRequest
+        {
+            public Verificaciones[] Verificaciones { get; set; }
         }
 
         // DELETE: api/Verificaciones/5
@@ -199,6 +231,8 @@ namespace FondoUnicoSistemaCompleto.Controllers
             return NoContent();
 
         }
+
+
 
         private bool VerificacionesExists(int id)
         {

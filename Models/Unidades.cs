@@ -4,6 +4,8 @@
     {
         public int Id {  get; set; }
         public string Unidad { get; set; }
+        public Boolean Verificaciones { get; set; }
+        public Boolean FondoUnico { get; set; }
 
     }
 }

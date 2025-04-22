@@ -11,6 +11,7 @@ namespace FondoUnicoSistemaCompleto.Models
         public string Unidad { get; set; }
         public string Banco { get; set; }
         public string Cuenta { get; set; }
+        public string TipoFormulario { get; set; }
         public int Boleta { get; set; }
         public float Importe { get; set; }
 

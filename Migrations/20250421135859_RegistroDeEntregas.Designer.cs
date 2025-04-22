@@ -4,6 +4,7 @@ using FondoUnicoSistemaCompleto.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FondoUnicoSistemaCompleto.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250421135859_RegistroDeEntregas")]
+    partial class RegistroDeEntregas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,10 +73,6 @@ namespace FondoUnicoSistemaCompleto.Migrations
                     b.Property<DateTime>("PeriodoArqueo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TipoFormulario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Unidad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,33 +100,6 @@ namespace FondoUnicoSistemaCompleto.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Localidades");
-                });
-
-            modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.RegistroEntregas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TipoEntrega")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("cantidadActual")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RegistroEntregas");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Unidades", b =>

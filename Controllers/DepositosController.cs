@@ -89,6 +89,33 @@ namespace FondoUnicoSistemaCompleto.Controllers
             return CreatedAtAction("GetDepositos", new { id = depositos.Id }, depositos);
         }
 
+
+      
+        [HttpGet("total-por-fecha/{fechaInicio}/{fechaFinal}/{unidad}/{tipoFormulario}")]
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<Depositos>>> GetTotalDepositosPorFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal, string tipoFormulario)
+        {
+            if(unidad == "Listar todo")
+            {
+                // Retorna un arreglo con los depositos que cumplan con la fecha de inicio y final
+                return await _context.Depositos.Where(e => e.Fecha >= fechaInicio && e.Fecha <= fechaFinal && e.TipoFormulario == tipoFormulario).ToListAsync();
+            }
+            // Retorna un arreglo con los depositos que cumplan con la unidad y la fecha de inicio y final
+            var DepositosArray = _context.Depositos.Where(e => e.Unidad == unidad && e.Fecha >= fechaInicio && e.Fecha <= fechaFinal && e.TipoFormulario == tipoFormulario).ToListAsync();
+
+            // Itera y suma los importes
+            float total = 0;
+            foreach (var deposito in DepositosArray.Result)
+            {
+                total += deposito.Importe;
+            }
+            return Ok(total);
+        }
+   
+
+
+
+
         [HttpGet("{unidad}/{fechaInicio}/{fechaFinal}")]
         [Authorize]
         public async Task<ActionResult<IEnumerable<Depositos>>> GetDepositosPorUnidadFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal)
