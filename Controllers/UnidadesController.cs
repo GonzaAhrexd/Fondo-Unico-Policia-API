@@ -57,6 +57,17 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
         })
         .ToList();
 }
+        [HttpGet("Verificaciones")]
+        public async Task<ActionResult<IEnumerable<object>>> GetUnidadesVerificaciones()
+        {
+            var unidades = await _context.Unidades
+                .Where(u => u.Verificaciones == true)
+                .Select(u => new { u.Id, u.Unidad })
+                .ToListAsync();
+
+            return Ok(unidades);
+        }
+
 
 
         // GET: api/Unidades/5

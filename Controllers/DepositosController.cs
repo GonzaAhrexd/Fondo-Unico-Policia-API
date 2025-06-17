@@ -139,7 +139,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // DELETE: api/Depositos/5
         [HttpDelete("{id}")]
-        [Authorize]
+       // [Authorize]
         public async Task<IActionResult> DeleteDepositos(int id)
         {
             var depositos = await _context.Depositos.FindAsync(id);
