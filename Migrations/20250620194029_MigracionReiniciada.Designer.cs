@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FondoUnicoSistemaCompleto.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250422132617_TipoFormularioDepositos")]
-    partial class TipoFormularioDepositos
+    [Migration("20250620194029_MigracionReiniciada")]
+    partial class MigracionReiniciada
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

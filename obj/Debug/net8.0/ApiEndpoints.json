@@ -1,0 +1,1423 @@
+[
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.BancosController",
+    "Method": "GetBancos",
+    "RelativePath": "api/Bancos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Bancos, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.BancosController",
+    "Method": "PostBancos",
+    "RelativePath": "api/Bancos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bancos",
+        "Type": "FondoUnicoSistemaCompleto.Models.Bancos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Bancos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.BancosController",
+    "Method": "GetBancos",
+    "RelativePath": "api/Bancos/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Bancos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.BancosController",
+    "Method": "PutBancos",
+    "RelativePath": "api/Bancos/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "bancos",
+        "Type": "FondoUnicoSistemaCompleto.Models.Bancos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.BancosController",
+    "Method": "DeleteBancos",
+    "RelativePath": "api/Bancos/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "GetDepositos",
+    "RelativePath": "api/Depositos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Depositos, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "PostDepositos",
+    "RelativePath": "api/Depositos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "depositos",
+        "Type": "FondoUnicoSistemaCompleto.Models.Depositos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Depositos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "GetDepositos",
+    "RelativePath": "api/Depositos/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Depositos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "PutDepositos",
+    "RelativePath": "api/Depositos/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "depositos",
+        "Type": "FondoUnicoSistemaCompleto.Models.Depositos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "DeleteDepositos",
+    "RelativePath": "api/Depositos/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "GetDepositosPorUnidadFecha",
+    "RelativePath": "api/Depositos/{unidad}/{fechaInicio}/{fechaFinal}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "fechaInicio",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "fechaFinal",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Depositos, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "GetDepositosPorNroTicket",
+    "RelativePath": "api/Depositos/buscar-por-nro-deposito/{nroDeposito}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nroDeposito",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Depositos, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.DepositosController",
+    "Method": "GetTotalDepositosPorFecha",
+    "RelativePath": "api/Depositos/total-por-fecha/{fechaInicio}/{fechaFinal}/{unidad}/{tipoFormulario}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "fechaInicio",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "fechaFinal",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipoFormulario",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Depositos, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "GetEntregas",
+    "RelativePath": "api/Entregas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SistemaFondoUnicoAPI.Models.Entregas, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "PostEntregas",
+    "RelativePath": "api/Entregas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entregas",
+        "Type": "SistemaFondoUnicoAPI.Models.Entregas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SistemaFondoUnicoAPI.Models.Entregas",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "GetEntregas",
+    "RelativePath": "api/Entregas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SistemaFondoUnicoAPI.Models.Entregas",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "PutEntregas",
+    "RelativePath": "api/Entregas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "entregas",
+        "Type": "SistemaFondoUnicoAPI.Models.Entregas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "DeleteEntregas",
+    "RelativePath": "api/Entregas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "GetEntregasPorUnidadFecha",
+    "RelativePath": "api/Entregas/{unidad}/{fechaInicio}/{fechaFinal}/{tipoFormulario}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "fechaInicio",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "fechaFinal",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipoFormulario",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SistemaFondoUnicoAPI.Models.Entregas, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.EntregasController",
+    "Method": "GetLastEntrega",
+    "RelativePath": "api/Entregas/Last",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.FormulariosController",
+    "Method": "GetFormularios",
+    "RelativePath": "api/Formularios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SistemaFondoUnicoAPI.Models.Formularios, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.FormulariosController",
+    "Method": "PostFormularios",
+    "RelativePath": "api/Formularios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "formularios",
+        "Type": "SistemaFondoUnicoAPI.Models.Formularios",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SistemaFondoUnicoAPI.Models.Formularios",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.FormulariosController",
+    "Method": "GetFormularios",
+    "RelativePath": "api/Formularios/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SistemaFondoUnicoAPI.Models.Formularios",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.FormulariosController",
+    "Method": "PutFormularios",
+    "RelativePath": "api/Formularios/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "formularios",
+        "Type": "SistemaFondoUnicoAPI.Models.Formularios",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.FormulariosController",
+    "Method": "DeleteFormularios",
+    "RelativePath": "api/Formularios/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.LocalidadesController",
+    "Method": "GetLocalidades",
+    "RelativePath": "api/Localidades",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Localidades, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.LocalidadesController",
+    "Method": "PostLocalidades",
+    "RelativePath": "api/Localidades",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "localidades",
+        "Type": "FondoUnicoSistemaCompleto.Models.Localidades",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Localidades",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.LocalidadesController",
+    "Method": "GetLocalidades",
+    "RelativePath": "api/Localidades/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Localidades",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.LocalidadesController",
+    "Method": "PutLocalidades",
+    "RelativePath": "api/Localidades/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "localidades",
+        "Type": "FondoUnicoSistemaCompleto.Models.Localidades",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.LocalidadesController",
+    "Method": "DeleteLocalidades",
+    "RelativePath": "api/Localidades/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.RegistroEntregasController",
+    "Method": "GetRegistroEntregas",
+    "RelativePath": "api/RegistroEntregas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.RegistroEntregas, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.RegistroEntregasController",
+    "Method": "PostRegistroEntregas",
+    "RelativePath": "api/RegistroEntregas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registroEntregas",
+        "Type": "FondoUnicoSistemaCompleto.Models.RegistroEntregas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.RegistroEntregas",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.RegistroEntregasController",
+    "Method": "GetRegistroEntregas",
+    "RelativePath": "api/RegistroEntregas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.RegistroEntregas",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.RegistroEntregasController",
+    "Method": "PutRegistroEntregas",
+    "RelativePath": "api/RegistroEntregas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "registroEntregas",
+        "Type": "FondoUnicoSistemaCompleto.Models.RegistroEntregas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.RegistroEntregasController",
+    "Method": "DeleteRegistroEntregas",
+    "RelativePath": "api/RegistroEntregas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.RegistroEntregasController",
+    "Method": "GetCantidadActual",
+    "RelativePath": "api/RegistroEntregas/CantidadActual/{fecha}/{Unidad}/{tipoEntrega}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fecha",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "unidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipoEntrega",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoAPI.Controllers.RenglonesEntregasController",
+    "Method": "GetRenglonesEntregas",
+    "RelativePath": "api/RenglonesEntregas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SistemaFondoUnicoAPI.Models.RenglonesEntrega, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoAPI.Controllers.RenglonesEntregasController",
+    "Method": "PostRenglonesEntrega",
+    "RelativePath": "api/RenglonesEntregas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "renglonesEntrega",
+        "Type": "SistemaFondoUnicoAPI.Models.RenglonesEntrega",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SistemaFondoUnicoAPI.Models.RenglonesEntrega",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoAPI.Controllers.RenglonesEntregasController",
+    "Method": "GetRenglonesEntrega",
+    "RelativePath": "api/RenglonesEntregas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SistemaFondoUnicoAPI.Models.RenglonesEntrega",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoAPI.Controllers.RenglonesEntregasController",
+    "Method": "PutRenglonesEntrega",
+    "RelativePath": "api/RenglonesEntregas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "renglonesEntrega",
+        "Type": "SistemaFondoUnicoAPI.Models.RenglonesEntrega",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoAPI.Controllers.RenglonesEntregasController",
+    "Method": "DeleteRenglonesEntrega",
+    "RelativePath": "api/RenglonesEntregas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "GetUnidades",
+    "RelativePath": "api/Unidades",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Unidades, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "PostUnidades",
+    "RelativePath": "api/Unidades",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unidades",
+        "Type": "FondoUnicoSistemaCompleto.Models.Unidades",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Unidades",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "GetUnidades",
+    "RelativePath": "api/Unidades/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Unidades",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "PutUnidades",
+    "RelativePath": "api/Unidades/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "unidades",
+        "Type": "FondoUnicoSistemaCompleto.Models.Unidades",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "DeleteUnidades",
+    "RelativePath": "api/Unidades/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "GetUnidadesVerificaciones",
+    "RelativePath": "api/Unidades/Verificaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "BuscarUsuarioDNI",
+    "RelativePath": "api/Usuarios/buscar-usuario-dni/{dni}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dni",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "BuscarUsuarios",
+    "RelativePath": "api/Usuarios/buscar-usuarios/{rol}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rol",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "DeleteUsuario",
+    "RelativePath": "api/Usuarios/delete-usuario/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "getUserLogged",
+    "RelativePath": "api/Usuarios/logged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "Login",
+    "RelativePath": "api/Usuarios/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FondoUnicoSistemaCompleto.Controllers.UsuariosController\u002BLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "AltaUsuario",
+    "RelativePath": "api/Usuarios/registrar-usuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FondoUnicoSistemaCompleto.Controllers.UsuariosController\u002BUsuarioRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UsuariosController",
+    "Method": "UpdateUsuario",
+    "RelativePath": "api/Usuarios/update-usuario/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "FondoUnicoSistemaCompleto.Controllers.UsuariosController\u002BUsuarioRequestEdit",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "GetVerificaciones",
+    "RelativePath": "api/Verificaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Verificaciones, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "PostVerificaciones",
+    "RelativePath": "api/Verificaciones",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "verificaciones",
+        "Type": "FondoUnicoSistemaCompleto.Models.Verificaciones[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FondoUnicoSistemaCompleto.Models.Verificaciones, FondoUnicoSistemaCompleto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "GetVerificaciones",
+    "RelativePath": "api/Verificaciones/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "FondoUnicoSistemaCompleto.Models.Verificaciones",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "PutVerificaciones",
+    "RelativePath": "api/Verificaciones/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "verificaciones",
+        "Type": "FondoUnicoSistemaCompleto.Models.Verificaciones",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "DeleteVerificaciones",
+    "RelativePath": "api/Verificaciones/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "Get",
+    "RelativePath": "api/Verificaciones/{unidad}/{desde}/{hasta}/{tipo}/{anulado}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "desde",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "hasta",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipo",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "anulado",
+        "Type": "System.Boolean",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "Get",
+    "RelativePath": "api/Verificaciones/{unidad}/{fecha}/{tipo}/{anulado}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "fecha",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipo",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "anulado",
+        "Type": "System.Boolean",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "AnularVerificacion",
+    "RelativePath": "api/Verificaciones/anular/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.VerificacionesController",
+    "Method": "Get",
+    "RelativePath": "api/Verificaciones/buscar-por-verificacion/{recibo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recibo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FondoUnicoSistemaCompleto.Controllers.UnidadesController",
+    "Method": "SetearFondoUnico",
+    "RelativePath": "setear-fondo",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

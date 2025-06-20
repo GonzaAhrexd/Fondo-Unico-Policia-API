@@ -8334,19 +8334,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gonza\\.nuget\\packages\\": {}
+    "C:\\Users\\Gonza\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gonza\\Documents\\SistemasTrabajo\\FondoUnicoSistemaCompleto\\FondoUnicoSistemaCompleto\\FondoUnicoSistemaCompleto.csproj",
+      "projectUniqueName": "C:\\Users\\Gonza\\Documents\\SistemasTrabajo\\FondoUnico\\Fondo-Unico-Policia-API\\FondoUnicoSistemaCompleto.csproj",
       "projectName": "FondoUnicoSistemaCompleto",
-      "projectPath": "C:\\Users\\gonza\\Documents\\SistemasTrabajo\\FondoUnicoSistemaCompleto\\FondoUnicoSistemaCompleto\\FondoUnicoSistemaCompleto.csproj",
-      "packagesPath": "C:\\Users\\gonza\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gonza\\Documents\\SistemasTrabajo\\FondoUnicoSistemaCompleto\\FondoUnicoSistemaCompleto\\obj\\",
+      "projectPath": "C:\\Users\\Gonza\\Documents\\SistemasTrabajo\\FondoUnico\\Fondo-Unico-Policia-API\\FondoUnicoSistemaCompleto.csproj",
+      "packagesPath": "C:\\Users\\Gonza\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gonza\\Documents\\SistemasTrabajo\\FondoUnico\\Fondo-Unico-Policia-API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\gonza\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gonza\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8371,7 +8376,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -8435,7 +8441,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

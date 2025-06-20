@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "ut1zf80rzxwHFHuKP7VI5YmUPKAqkQei9l2p6vvTFO4=",
-  "Source": "FondoUnicoSistemaCompleto",
-  "BasePath": "_content/FondoUnicoSistemaCompleto",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"68IYvGS6d4WCEswKhl62FMunxPvgDCgofML4rOBeBVI=","Source":"FondoUnicoSistemaCompleto","BasePath":"_content/FondoUnicoSistemaCompleto","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
