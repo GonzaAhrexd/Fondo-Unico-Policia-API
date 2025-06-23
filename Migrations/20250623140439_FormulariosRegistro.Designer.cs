@@ -4,6 +4,7 @@ using FondoUnicoSistemaCompleto.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FondoUnicoSistemaCompleto.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250623140439_FormulariosRegistro")]
+    partial class FormulariosRegistro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Arqueos", (string)null);
+                    b.ToTable("Arqueos");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Bancos", b =>
@@ -76,7 +79,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bancos", (string)null);
+                    b.ToTable("Bancos");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Depositos", b =>
@@ -120,7 +123,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Depositos", (string)null);
+                    b.ToTable("Depositos");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Localidades", b =>
@@ -140,7 +143,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Localidades", (string)null);
+                    b.ToTable("Localidades");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.RegistroEntregas", b =>
@@ -167,7 +170,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegistroEntregas", (string)null);
+                    b.ToTable("RegistroEntregas");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.RegistroPreciosFormularios", b =>
@@ -193,7 +196,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegistroPreciosFormularios", (string)null);
+                    b.ToTable("RegistroPreciosFormularios");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Unidades", b =>
@@ -216,7 +219,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Unidades", (string)null);
+                    b.ToTable("Unidades");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Usuario", b =>
@@ -253,7 +256,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuario", (string)null);
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("FondoUnicoSistemaCompleto.Models.Verificaciones", b =>
@@ -313,7 +316,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Verificaciones", (string)null);
+                    b.ToTable("Verificaciones");
                 });
 
             modelBuilder.Entity("SistemaFondoUnicoAPI.Models.Entregas", b =>
@@ -339,7 +342,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("NroEntrega");
 
-                    b.ToTable("Entregas", (string)null);
+                    b.ToTable("Entregas");
                 });
 
             modelBuilder.Entity("SistemaFondoUnicoAPI.Models.Formularios", b =>
@@ -359,7 +362,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Formularios", (string)null);
+                    b.ToTable("Formularios");
                 });
 
             modelBuilder.Entity("SistemaFondoUnicoAPI.Models.RenglonesEntrega", b =>
@@ -393,7 +396,7 @@ namespace FondoUnicoSistemaCompleto.Migrations
 
                     b.HasIndex("EntregasNroEntrega");
 
-                    b.ToTable("RenglonesEntregas", (string)null);
+                    b.ToTable("RenglonesEntregas");
                 });
 
             modelBuilder.Entity("SistemaFondoUnicoAPI.Models.RenglonesEntrega", b =>

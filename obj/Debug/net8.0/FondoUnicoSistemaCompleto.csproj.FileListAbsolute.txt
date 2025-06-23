@@ -867,3 +867,5 @@ C:\Users\Gonza\Documents\SistemasTrabajo\FondoUnico\Fondo-Unico-Policia-API\obj\
 C:\Users\Gonza\Documents\SistemasTrabajo\FondoUnico\Fondo-Unico-Policia-API\obj\Debug\net8.0\FondoUnicoSistemaCompleto.pdb
 C:\Users\Gonza\Documents\SistemasTrabajo\FondoUnico\Fondo-Unico-Policia-API\obj\Debug\net8.0\FondoUnicoSistemaCompleto.genruntimeconfig.cache
 C:\Users\Gonza\Documents\SistemasTrabajo\FondoUnico\Fondo-Unico-Policia-API\obj\Debug\net8.0\ref\FondoUnicoSistemaCompleto.dll
+C:\Users\Gonza\Documents\SistemasTrabajo\FondoUnico\Fondo-Unico-Policia-API\obj\Debug\net8.0\FondoUnicoSistemaCompleto.RazorAssemblyInfo.cache
+C:\Users\Gonza\Documents\SistemasTrabajo\FondoUnico\Fondo-Unico-Policia-API\obj\Debug\net8.0\FondoUnicoSistemaCompleto.RazorAssemblyInfo.cs

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FondoUnicoSistemaCompleto.Context;
 using SistemaFondoUnicoAPI.Models;
+using FondoUnicoSistemaCompleto.Models;
 
 namespace FondoUnicoSistemaCompleto.Controllers
 {
@@ -53,6 +54,28 @@ namespace FondoUnicoSistemaCompleto.Controllers
             }
 
             _context.Entry(formularios).State = EntityState.Modified;
+            // Ahora en RegistroPreciosFormularios, busca el último registro del formulario y pon el hastaActivo en la fecha actual
+
+            var registro = await _context.RegistroPreciosFormularios
+                .Where(r => r.Formulario == formularios.Formulario)
+                .OrderByDescending(r => r.desdeActivo)
+                .FirstOrDefaultAsync();
+
+            if (registro != null)
+            {
+                registro.hastaActivo = DateTime.Now; // Actualiza la fecha de finalización del último registro
+                _context.Entry(registro).State = EntityState.Modified; // Marca el registro como modificado
+            }
+
+            // Ahora crea un nuevo registro en RegistroPreciosFormularios con el nuevo precio y la fecha actual
+            var nuevoRegistro = new RegistroPreciosFormularios
+            {
+                desdeActivo = DateTime.Now,
+                Formulario = formularios.Formulario,
+                Importe = formularios.Importe,
+                hastaActivo = null // Inicialmente no tiene fecha de finalización
+            };
+            _context.RegistroPreciosFormularios.Add(nuevoRegistro); // Añade el nuevo registro
 
             try
             {
@@ -79,7 +102,18 @@ namespace FondoUnicoSistemaCompleto.Controllers
         public async Task<ActionResult<Formularios>> PostFormularios(Formularios formularios)
         {
             _context.Formularios.Add(formularios);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // primero guarda el formulario
+
+            var registroPrecio = new RegistroPreciosFormularios
+            {
+                desdeActivo = DateTime.Now,
+                Formulario = formularios.Formulario, // debe tener valor
+                Importe = formularios.Importe,
+                hastaActivo = null
+            };
+
+            _context.RegistroPreciosFormularios.Add(registroPrecio);
+            await _context.SaveChangesAsync(); // guarda el registro de precio
 
             return CreatedAtAction("GetFormularios", new { id = formularios.Id }, formularios);
         }

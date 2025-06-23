@@ -70,16 +70,9 @@ namespace FondoUnicoSistemaCompleto
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
-
-
             app.UseCors(cors);
-
             app.MapControllers();
-
             app.Run();
         }
     }
