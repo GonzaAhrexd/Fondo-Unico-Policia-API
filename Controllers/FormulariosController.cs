@@ -42,6 +42,22 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
             return formularios;
         }
+        // GET: api/Formularios/FiltrarHistorial/{tipo}/{desde}/{hasta}
+
+        [HttpGet("FiltrarHistorial/{tipo}/{desde}/{hasta}")]
+        public async Task<ActionResult<IEnumerable<RegistroPreciosFormularios>>> FiltrarHistorial(
+            string tipo, DateTime desde, DateTime hasta)
+        {
+            var registro = await _context.RegistroPreciosFormularios
+                .Where(r => r.Formulario == tipo &&
+                            r.desdeActivo.Date <= hasta.Date && // Empieza antes o en la fecha 'hasta' del filtro
+                            (r.hastaActivo == null || r.hastaActivo.Value.Date >= desde.Date)) // Termina después o en la fecha 'desde' del filtro
+                .OrderByDescending(r => r.Id)
+                .FirstOrDefaultAsync();
+
+            return Ok(registro);
+        }
+
 
         // PUT: api/Formularios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

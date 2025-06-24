@@ -114,6 +114,8 @@ namespace FondoUnicoSistemaCompleto.Controllers
                             && r.TipoEntrega == tipoEntrega)
                 .OrderByDescending(r => r.Fecha)
                 .FirstOrDefaultAsync();
+            
+
 
 
             if(registroEntregas == null)
