@@ -103,7 +103,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // Devuelve el último registro de entrega hasta una fecha ingresada y toma el valor de la cantidad actual y devuelvela 
         // GET: api/RegistroEntregas/CantidadActual/fecha
 
-        [HttpGet("CantidadActual/{fecha}/{Unidad}/{tipoEntrega}")]
+        [HttpGet("CantidadActual/{fecha}/{unidad}/{tipoEntrega}")]
         public async Task<ActionResult<int>> GetCantidadActual(string fecha, string unidad, string tipoEntrega)
         {
             DateTime fechaConsulta = DateTime.Parse(fecha).Date.AddDays(1).AddTicks(-1);

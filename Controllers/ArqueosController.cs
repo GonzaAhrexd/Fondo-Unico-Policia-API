@@ -85,7 +85,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
                 Unidad = arqueos.Unidad,
                 Fecha = arqueos.Hasta,
                 TipoEntrega = arqueos.TipoDeFormulario,
-                cantidadActual = arqueos.TotalSobrante
+                cantidadActual = arqueos.CantidadRestante
             };
             _context.RegistroEntregas.Add(registroEntrega);
             await _context.SaveChangesAsync();
