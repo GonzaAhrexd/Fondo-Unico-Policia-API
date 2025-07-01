@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FondoUnicoSistemaCompleto.Context;
+using FondoUnicoSistemaCompleto.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FondoUnicoSistemaCompleto.Context;
-using FondoUnicoSistemaCompleto.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FondoUnicoSistemaCompleto.Controllers
 {
@@ -21,11 +22,12 @@ namespace FondoUnicoSistemaCompleto.Controllers
             _context = context;
         }
 
-       // GET: api/Unidades
-[HttpGet]
-public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
-{
-    var ordinales = new Dictionary<string, int>
+        // GET: api/Unidades
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
+        {
+            var ordinales = new Dictionary<string, int>
     {
         { "Primera", 1 }, { "Segunda", 2 }, { "Tercera", 3 }, { "Cuarta", 4 },
         { "Quinta", 5 }, { "Sexta", 6 }, { "Séptima", 7 }, { "Octava", 8 },
@@ -34,30 +36,31 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
         { "Decimoctava", 18}, { "Decimonovena", 19}, { "Vigésima" , 20 }
     };
 
-    var unidades = await _context.Unidades.ToListAsync(); // Trae los datos de la BD
+            var unidades = await _context.Unidades.ToListAsync(); // Trae los datos de la BD
 
-    return unidades
-        .OrderBy(x =>
-        {
-            if (string.IsNullOrWhiteSpace(x.Unidad))
-                return "99"; // Si la unidad está vacía, la manda al final
+            return unidades
+                .OrderBy(x =>
+                {
+                    if(string.IsNullOrWhiteSpace(x.Unidad))
+                        return "99"; // Si la unidad está vacía, la manda al final
 
-            var palabras = x.Unidad.Split(' '); // Dividimos la cadena en palabras
-            var ultimaPalabra = palabras.Last(); // Última palabra (Ej: Resistencia, Fontana)
+                    var palabras = x.Unidad.Split(' '); // Dividimos la cadena en palabras
+                    var ultimaPalabra = palabras.Last(); // Última palabra (Ej: Resistencia, Fontana)
 
-            // Buscar el número ordinal en la frase
-            var numeroOrdinal = palabras.FirstOrDefault(p => ordinales.ContainsKey(p));
+                    // Buscar el número ordinal en la frase
+                    var numeroOrdinal = palabras.FirstOrDefault(p => ordinales.ContainsKey(p));
 
-            // Si hay número ordinal, convertirlo a número, si no, usar "99" para que vaya al final
-            var numeroOrden = numeroOrdinal != null ? ordinales[numeroOrdinal].ToString("D2") : "99";
+                    // Si hay número ordinal, convertirlo a número, si no, usar "99" para que vaya al final
+                    var numeroOrden = numeroOrdinal != null ? ordinales[numeroOrdinal].ToString("D2") : "99";
 
-            // Primero ordenar por la última palabra (alfabéticamente)
-            // Luego ordenar por el número ordinal
-            return ultimaPalabra + "_" + numeroOrden;
-        })
-        .ToList();
-}
+                    // Primero ordenar por la última palabra (alfabéticamente)
+                    // Luego ordenar por el número ordinal
+                    return ultimaPalabra + "_" + numeroOrden;
+                })
+                .ToList();
+        }
         [HttpGet("Verificaciones")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<object>>> GetUnidadesVerificaciones()
         {
             var unidades = await _context.Unidades
@@ -72,11 +75,12 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
 
         // GET: api/Unidades/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Unidades>> GetUnidades(int id)
         {
             var unidades = await _context.Unidades.FindAsync(id);
 
-            if (unidades == null)
+            if(unidades == null)
             {
                 return NotFound();
             }
@@ -87,9 +91,10 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
         // PUT: api/Unidades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> PutUnidades(int id, Unidades unidades)
         {
-            if (id != unidades.Id)
+            if(id != unidades.Id)
             {
                 return BadRequest();
             }
@@ -100,9 +105,9 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch(DbUpdateConcurrencyException)
             {
-                if (!UnidadesExists(id))
+                if(!UnidadesExists(id))
                 {
                     return NotFound();
                 }
@@ -118,6 +123,7 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
         // POST: api/Unidades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<Unidades>> PostUnidades(Unidades unidades)
         {
             _context.Unidades.Add(unidades);
@@ -128,10 +134,11 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
 
         // DELETE: api/Unidades/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteUnidades(int id)
         {
             var unidades = await _context.Unidades.FindAsync(id);
-            if (unidades == null)
+            if(unidades == null)
             {
                 return NotFound();
             }
@@ -142,23 +149,6 @@ public async Task<ActionResult<IEnumerable<Unidades>>> GetUnidades()
             return NoContent();
         }
 
-
-        [HttpPut("/setear-fondo")]
-        // pon todas las unidades en el campo FondoUnico en true y el de Verificaciones en False
-        public async Task<IActionResult> SetearFondoUnico()
-        {
-            var unidades = await _context.Unidades.ToListAsync();
-
-            foreach (var unidad in unidades)
-            {
-                unidad.FondoUnico = true;
-                unidad.Verificaciones = false;
-            }
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
 
 
         private bool UnidadesExists(int id)

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FondoUnicoSistemaCompleto.Context;
+using FondoUnicoSistemaCompleto.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FondoUnicoSistemaCompleto.Context;
 using SistemaFondoUnicoAPI.Models;
-using FondoUnicoSistemaCompleto.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FondoUnicoSistemaCompleto.Controllers
 {
@@ -24,6 +25,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // GET: api/Formularios
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Formularios>>> GetFormularios()
         {
             return await _context.Formularios.ToListAsync();
@@ -31,6 +33,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // GET: api/Formularios/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Formularios>> GetFormularios(int id)
         {
             var formularios = await _context.Formularios.FindAsync(id);
@@ -45,6 +48,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // GET: api/Formularios/FiltrarHistorial/{tipo}/{desde}/{hasta}
 
         [HttpGet("FiltrarHistorial/{tipo}/{desde}/{hasta}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<RegistroPreciosFormularios>>> FiltrarHistorial(
             string tipo, DateTime desde, DateTime hasta)
         {
@@ -62,6 +66,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // PUT: api/Formularios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> PutFormularios(int id, Formularios formularios)
         {
             if (id != formularios.Id)
@@ -115,6 +120,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // POST: api/Formularios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<Formularios>> PostFormularios(Formularios formularios)
         {
             _context.Formularios.Add(formularios);
@@ -136,6 +142,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // DELETE: api/Formularios/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteFormularios(int id)
         {
             var formularios = await _context.Formularios.FindAsync(id);

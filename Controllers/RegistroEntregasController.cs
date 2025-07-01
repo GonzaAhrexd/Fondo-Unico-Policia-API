@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FondoUnicoSistemaCompleto.Context;
+using FondoUnicoSistemaCompleto.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FondoUnicoSistemaCompleto.Context;
-using FondoUnicoSistemaCompleto.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FondoUnicoSistemaCompleto.Controllers
 {
@@ -23,6 +24,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // GET: api/RegistroEntregas
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<RegistroEntregas>>> GetRegistroEntregas()
         {
             return await _context.RegistroEntregas.ToListAsync();
@@ -30,6 +32,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // GET: api/RegistroEntregas/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<RegistroEntregas>> GetRegistroEntregas(int id)
         {
             var registroEntregas = await _context.RegistroEntregas.FindAsync(id);
@@ -45,6 +48,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // PUT: api/RegistroEntregas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutRegistroEntregas(int id, RegistroEntregas registroEntregas)
         {
             if (id != registroEntregas.Id)
@@ -76,6 +80,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // POST: api/RegistroEntregas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<RegistroEntregas>> PostRegistroEntregas(RegistroEntregas registroEntregas)
         {
             _context.RegistroEntregas.Add(registroEntregas);
@@ -86,6 +91,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // DELETE: api/RegistroEntregas/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteRegistroEntregas(int id)
         {
             var registroEntregas = await _context.RegistroEntregas.FindAsync(id);
@@ -104,6 +110,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // GET: api/RegistroEntregas/CantidadActual/fecha
 
         [HttpGet("CantidadActual/{fecha}/{unidad}/{tipoEntrega}")]
+        [Authorize]
         public async Task<ActionResult<int>> GetCantidadActual(string fecha, string unidad, string tipoEntrega)
         {
             DateTime fechaConsulta = DateTime.Parse(fecha).Date.AddDays(1).AddTicks(-1);

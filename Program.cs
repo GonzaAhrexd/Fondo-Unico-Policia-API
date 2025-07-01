@@ -41,6 +41,7 @@ namespace FondoUnicoSistemaCompleto
                 {
                     ValidateAudience = false,
                     ValidateIssuer = false,
+                    ValidateLifetime = true,  // Valida la expiración del token
                     IssuerSigningKey = signingKey
                 };
 

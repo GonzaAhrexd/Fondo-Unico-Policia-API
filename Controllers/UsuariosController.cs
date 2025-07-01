@@ -9,14 +9,13 @@ using FondoUnicoSistemaCompleto.Context;
 using FondoUnicoSistemaCompleto.Models;
 using System.Net.Http;
 using System.Text.Json;
-using System.Text; 
+using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using Microsoft.CodeAnalysis.Host;
-
 
 namespace FondoUnicoSistemaCompleto.Controllers
 {
@@ -28,202 +27,195 @@ namespace FondoUnicoSistemaCompleto.Controllers
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly IConfiguration _configuration;
 
-      
         public UsuariosController(IConfiguration configuration, ApplicationDBContext context)
         {
             _context = context;
             _configuration = configuration;
-
         }
 
-        // Haz una ruta /registrar-usuario 
-        [HttpPost("registrar-usuario")]
-        public async Task<IActionResult> AltaUsuario([FromBody] UsuarioRequest request){
-            // Obtener del archivo .env POLICIA_DIGITAL_URL
-
+        // --- Interfaz y Clases para Deserialización Optimizada ---
+        // Se define una interfaz común para los datos de usuario que necesitamos
         
-               var urlPoliciaDigital = _configuration["POLICIA_DIGITAL_URL"];
 
-
-
-            if (urlPoliciaDigital == null)
+        // /api/usuarios/registrar-usuario
+        [HttpPost("registrar-usuario")]
+        [Authorize(Roles = "Administrador")] // Solo el administrador puede registrar usuarios
+        public async Task<IActionResult> AltaUsuario([FromBody] UsuarioRequest request)
+        {
+            // Verifica que la solicitud no sea nula
+            var urlPoliciaDigital = _configuration["POLICIA_DIGITAL_URL"];
+            // Verifica que la URL de la Policía Digital esté configurada
+            if(urlPoliciaDigital == null)
             {
-                return StatusCode(500, urlPoliciaDigital);
+                // Si la URL no está configurada, retorna un error 500
+                return StatusCode(500, new { message = "La URL de la Policía Digital no está configurada." });
             }
 
-
-            // Extra del body solamente dni
             try
             {
-                    // Busca si el DNI ya existe en la BD
-                    var usuarioExistente = await _context.Usuario.FirstOrDefaultAsync(u => u.DNI == request.Dni);
+                // Verifica que el request no sea nulo
+                var usuarioExistente = await _context.Usuario.FirstOrDefaultAsync(u => u.DNI == request.Dni);
                 if(usuarioExistente != null)
                 {
-                    
-                        return BadRequest(new { message = "El usuario ya existe" });
-                    }
+                    return BadRequest(new { message = "El usuario ya existe" });
+                }
 
-                
+                // Realiza la petición a la API externa de Policía Digital
                 var response = await _httpClient.PostAsync(
                     $"{urlPoliciaDigital}/api_registroUsuario/usuario/find/usuarioSistema/{request.Dni}",
                     null
                 );
 
+                // Verifica si la respuesta fue exitosa
                 var content = await response.Content.ReadAsStringAsync();
 
+                IApiUserData apiUserData = null; // Usamos la interfaz común
+                var serializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-
-
-                if(request.tipoUsuario == "Civil"){
-
-                // Deserializar JSON a objeto
-                var usuario = JsonSerializer.Deserialize<UsuarioResponse>(content, new JsonSerializerOptions
+                // Deserializa la respuesta dependiendo del tipo de usuario
+                if(request.tipoUsuario == "Civil")
                 {
-                    PropertyNameCaseInsensitive = true
-                });
-
-
-                if(usuario?.Data == null || usuario?.Data.Civil == null)
+                    // Deserializa como CivilResponse
+                    var usuarioResponse = JsonSerializer.Deserialize<UsuarioResponse>(content, serializerOptions);
+                    if(usuarioResponse?.Data == null || usuarioResponse.Data.Civil == null)
                     {
-
-                    return NotFound(new { message = "Usuario no encontrado" });
-                    }
-
-
-
-                    
-                  var AltaUsuarioNuevo = new Usuario
-                  {
-                      Rol = request.Rol,
-                      Nombre = usuario.Data.Civil.Nombre,
-                      Apellido =  usuario.Data.Civil.Apellido,
-                      Usuario_repo =  usuario.Data.Id.ToString(),
-                      Nombre_de_usuario =  usuario.Data.Usuario,
-                      DNI = request.Dni, 
-                  };
-
-                  _context.Usuario.Add(AltaUsuarioNuevo);
-
-                  _context.SaveChanges();
-
-                    return Ok(AltaUsuarioNuevo);
-
-                }
-                else
-                {
-                    var usuario = JsonSerializer.Deserialize<PoliResponse>(content, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
-
-                    if(usuario?.Data == null)
                         return NotFound(new { message = "Usuario no encontrado" });
-
-
-
-                    var AltaUsuarioNuevo = new Usuario
+                    }
+                    apiUserData = new CivilApiData
                     {
-                        Rol = request.Rol,
-                        Nombre = usuario.Data.Persona.Nombre,
-                        Apellido =  usuario.Data.Persona.Apellido,
-                        Usuario_repo =  usuario.Data.Id.ToString(),
-                        Nombre_de_usuario =  usuario.Data.Usuario,
-                        DNI = request.Dni,
+                        Id = usuarioResponse.Data.Id,
+                        Usuario = usuarioResponse.Data.Usuario,
+                        Civil = usuarioResponse.Data.Civil // Asigna el objeto Civil completo
                     };
-
-
-                    _context.Usuario.Add(AltaUsuarioNuevo);
-                    _context.SaveChanges();
-
-                    
-
-                    return Ok(AltaUsuarioNuevo);
-
                 }
-              
+                else // Se asume que si no es Civil, es Policia (o cualquier otro tipo que siga PoliResponse)
+                {
+                    // Deserializa como PoliResponse
+                    var poliResponse = JsonSerializer.Deserialize<PoliResponse>(content, serializerOptions);
+                    if(poliResponse?.Data == null || poliResponse.Data.Persona == null) // También verifica Persona para Poli
+                    {
+                        return NotFound(new { message = "Usuario no encontrado" });
+                    }
+                    apiUserData = new PoliApiData
+                    {
+                        Id = poliResponse.Data.Id,
+                        Usuario = poliResponse.Data.Usuario,
+                        Persona = poliResponse.Data.Persona // Asigna el objeto Persona completo
+                    };
+                }
+
+                // Si por alguna razón userData es nulo (ej. un tipoUsuario no manejado), manejarlo
+                if(apiUserData == null)
+                {
+                    return BadRequest(new { message = "Tipo de usuario no válido o datos de API incompletos." });
+                }
+
+                // Lógica común de creación y guardado de usuario
+                var altaUsuarioNuevo = new Usuario
+                {
+                    Rol = request.Rol,
+                    Nombre = apiUserData.Nombre,
+                    Apellido = apiUserData.Apellido,
+                    Usuario_repo = apiUserData.Id.ToString(),
+                    Nombre_de_usuario = apiUserData.Usuario,
+                    DNI = request.Dni,
+                };
+
+                // Guarda el nuevo usuario en la base de datos 
+                _context.Usuario.Add(altaUsuarioNuevo);
+                _context.SaveChanges();
+
+                // Retorna el usuario creado
+                return Ok(altaUsuarioNuevo);
+            }
+            catch(JsonException jsonEx)
+            {
+                // Captura errores de deserialización JSON
+                Console.WriteLine($"Error de deserialización JSON: {jsonEx.Message}");
+                return BadRequest(new { message = "Formato de respuesta de la API externa inválido.", details = jsonEx.Message });
+            }
+            catch(HttpRequestException httpEx)
+            {
+                // Captura errores de la petición HTTP
+                Console.WriteLine($"Error de petición HTTP a la API externa: {httpEx.Message}");
+                return StatusCode(503, new { message = "No se pudo conectar con el servicio externo de Policía Digital.", details = httpEx.Message });
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(500, new { message = "Ocurrió un error inesperado.", details = ex.ToString() });
-
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al registrar el usuario.", details = ex.Message });
             }
-    
-            }
+        }
 
+        // //api/usuarios/buscar-usuario-dni/{dni}
         [HttpGet("buscar-usuario-dni/{dni}")]
-        [Authorize]
-        public async Task<IActionResult> BuscarUsuarioDNI(string dni){
-            try{
-                
+        [Authorize(Roles = "Administrador")] // Solo el administrador puede buscar usuarios por DNI
+        public async Task<IActionResult> BuscarUsuarioDNI(string dni)
+        {
+            try
+            {
+                // Verifica que el DNI no sea nulo o vacío
                 var usuario = await _context.Usuario.FirstOrDefaultAsync(u => u.DNI == dni);
                 if(usuario == null)
                 {
                     return NotFound(new { message = "Usuario no encontrado" });
                 }
-
+                // Retorna el usuario encontrado
                 return Ok(usuario);
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(500, "Error interno del servidor");   
+                return StatusCode(500, new { message = "Error interno del servidor al buscar usuario por DNI.", details = ex.Message });
             }
-
-
-
-        }   
-
+        }
+        // api/usuarios/buscar-usuarios/{rol}
         [HttpGet("buscar-usuarios/{rol}")]
-        [Authorize]
-        public async Task<IActionResult> BuscarUsuarios(string rol )
+        [Authorize(Roles = "Administrador")] // Solo el administrador puede buscar usuarios por rol
+        public async Task<IActionResult> BuscarUsuarios(string rol)
         {
             try
             {
+                // Verifica que el rol no sea nulo o vacío
                 bool rolIngresado = rol != "no_ingresado";
-
+                // Si el rol no fue ingresado, se buscarán todos los usuarios
                 var query = _context.Usuario.AsQueryable();
-
+                // Si se ingresó un rol, filtra por ese rol
                 if(rolIngresado)
                     query = query.Where(u => u.Rol == rol);
 
-           
-
-
+                // Ejecuta la consulta y obtiene la lista de usuarios
                 return Ok(await query.ToListAsync());
-
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(500, "Error interno del servidor");
+                return StatusCode(500, new { message = "Error interno del servidor al buscar usuarios por rol.", details = ex.Message });
             }
         }
 
+        // api/usuarios/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-//            var urlPoliciaDigital = Environment.GetEnvironmentVariable("POLICIA_DIGITAL_URL");
-
+            // Verifica que la URL de la Policía Digital esté configurada
             var urlPoliciaDigital = _configuration["POLICIA_DIGITAL_URL"];
+            
+            // Verifica que la clave secreta del token esté configurada
             var secretKey = _configuration["SECRET_TOKEN_KEY"];
-
-
             if(secretKey == null)
             {
-                return StatusCode(500, secretKey);
+                return StatusCode(500, new { message = "La clave secreta del token no está configurada." });
             }
 
-            //return Ok(secretKey);
             try
             {
-
+                // Crea el cuerpo de la solicitud para Policía Digital
                 var requestBody = new
                 {
                     usuario = request.Usuario,
                     clave = request.Clave
                 };
-
 
                 var jsonContent = new StringContent(
                     JsonSerializer.Serialize(requestBody),
@@ -231,32 +223,37 @@ namespace FondoUnicoSistemaCompleto.Controllers
                     "application/json"
                 );
 
+                // Realiza la petición POST a la API externa de Policía Digital
                 var response = await _httpClient.PostAsync(
                     $"{urlPoliciaDigital}/api_registroUsuario/usuario/find/loginSistemas", jsonContent
                 );
 
-                // Tengo que acceder a response.data.data
+                // Guarda el contenido de la respuesta
                 var contentString = await response.Content.ReadAsStringAsync();
 
-                // Define una clase para deserializar el JSON
+                // Verificar si la respuesta de la API externa fue exitosa
+                if(!response.IsSuccessStatusCode)
+                {
+                    return StatusCode((int)response.StatusCode, new { message = "Error al autenticar con el servicio externo.", details = contentString });
+                }
+
+                // Deserializa la respuesta JSON de la API externa
                 var contentObject = JsonSerializer.Deserialize<ResponseModel>(contentString, new JsonSerializerOptions
                 {
-                    PropertyNameCaseInsensitive = true // Ignora mayúsculas/minúsculas en las propiedades
+                    PropertyNameCaseInsensitive = true
                 });
-                // Extrae data y guardalo en Id sesión
+
+                // Asumiendo que `data` en ResponseModel es el ID del repositorio
                 int idRepo = contentObject.data;
 
-                // Ahora buscalo en la base de datos
                 var usuario = await _context.Usuario.FirstOrDefaultAsync(u => u.Usuario_repo == idRepo.ToString());
-
-
 
                 if(usuario == null)
                 {
-                    return NotFound(new { message = "Usuario no encontrado" });
+                    return NotFound(new { message = "Usuario no encontrado en el sistema interno." });
                 }
 
-                // Si el usuario existe, generamos un token
+                // Generamos un token si el usuario existe
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var byteKey = Encoding.UTF8.GetBytes(secretKey);
                 var tokenDes = new SecurityTokenDescriptor
@@ -266,58 +263,128 @@ namespace FondoUnicoSistemaCompleto.Controllers
                         new Claim(ClaimTypes.Name, usuario.Nombre),
                         new Claim(ClaimTypes.Role, usuario.Rol),
                         new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString())
-                        //  new Claim(ClaimTypes.)
                     }),
-
                     Expires = DateTime.UtcNow.AddHours(24),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(byteKey), SecurityAlgorithms.HmacSha256Signature)
                 };
 
                 var token = tokenHandler.CreateToken(tokenDes);
-
-
                 string tokenString = tokenHandler.WriteToken(token);
 
                 Response.Cookies.Append("AuthToken", tokenString, new CookieOptions
                 {
-                    HttpOnly = false,       // Hace que el token no sea accesible desde JavaScript
-                    Secure = false,         // Asegura la cookie en conexiones HTTPS
-                    SameSite = SameSiteMode.Strict, // Previene que la cookie sea enviada en solicitudes cross-site
-                    Expires = DateTime.UtcNow.AddHours(24) // Configura el tiempo de expiración
+                    HttpOnly = false, // Considera true si no necesitas acceder desde JavaScript en el cliente
+                    Secure = false,   // Debería ser true en producción (HTTPS)
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTime.UtcNow.AddHours(24)
                 });
 
-                // Retorna los datos del usuario y la cookie por separado
                 return Ok(new { usuario, tokenString });
-
-
-                //return Ok(tokenString
-
-
+            }
+            catch(JsonException jsonEx)
+            {
+                Console.WriteLine($"Error de deserialización JSON en Login: {jsonEx.Message}");
+                return BadRequest(new { message = "Formato de respuesta de la API externa inválido al iniciar sesión.", details = jsonEx.Message });
+            }
+            catch(HttpRequestException httpEx)
+            {
+                Console.WriteLine($"Error de petición HTTP a la API externa en Login: {httpEx.Message}");
+                return StatusCode(503, new { message = "No se pudo conectar con el servicio externo de Policía Digital para el login.", details = httpEx.Message });
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(500, ex);
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al intentar iniciar sesión.", details = ex.Message });
             }
         }
 
+        // api/usuarios/logged
         [HttpGet("logged")]
         [Authorize]
-        //Recupera los datos del usuario con el token que viene en el header
-        public async Task<IActionResult> getUserLogged()
+        public async Task<IActionResult> GetUserLogged()
         {
-            var id = int.Parse( User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var usuario = await _context.Usuario.FindAsync(id);
-
-            if(usuario == null)
+            try
             {
-                return NotFound(new { message = "Usuario no encontrado" });
-            }
+                var idClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if(idClaim == null || !int.TryParse(idClaim.Value, out int id))
+                {
+                    return Unauthorized(new { message = "ID de usuario no encontrado o inválido en el token." });
+                }
 
-            return Ok(usuario);
+                var usuario = await _context.Usuario.FindAsync(id);
+
+                if(usuario == null)
+                {
+                    return NotFound(new { message = "Usuario no encontrado en la base de datos interna." });
+                }
+                return Ok(usuario);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al obtener el usuario logueado.", details = ex.Message });
+            }
         }
 
+        // api/usuarios/delete-usuario/{id}
+        [HttpDelete("delete-usuario/{id}")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> DeleteUsuario(int id)
+        {
+            try
+            {
+                // Verifica que el ID del usuario no sea nulo o inválido
+                var usuario = await _context.Usuario.FindAsync(id);
+                if(usuario == null)
+                {
+                    return NotFound(new { message = "Usuario a eliminar no encontrado." });
+                }
+                // Elimina el usuario de la base de datos
+                _context.Usuario.Remove(usuario);
+                await _context.SaveChangesAsync();
 
+                return NoContent(); // 204 No Content para eliminación exitosa
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al eliminar el usuario.", details = ex.Message });
+            }
+        }
+
+        // api/usuarios/update-usuario/{id}
+        [HttpPut("update-usuario/{id}")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> UpdateUsuario(int id, [FromBody] UsuarioRequestEdit request)
+        {
+            try
+            {
+                // Verifica que el ID del usuario no sea nulo o inválido
+                var usuario = await _context.Usuario.FindAsync(id);
+                if(usuario == null)
+                {
+                    return NotFound(new { message = "Usuario a actualizar no encontrado." });
+                }
+
+                // Solo se permite actualizar el rol
+                usuario.Rol = request.Rol;
+
+                // Actualiza el usuario en la base de datos
+                await _context.SaveChangesAsync();
+
+                return Ok(usuario);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el usuario.", details = ex.Message });
+            }
+        }
+
+        /* --- Clases de modelos (Data Transfer Objects - DTOs) ---
+           Se mantienen las clases originales, ya que representan la estructura de las respuestas JSON de la API externa
+            y los requests de tu API.
+        */ 
 
         public class LoginRequest
         {
@@ -329,80 +396,52 @@ namespace FondoUnicoSistemaCompleto.Controllers
         {
             public string code { get; set; }
             public string msg { get; set; }
-            public int data { get; set; }
+            public int data { get; set; } // Asumiendo que 'data' es un entero (ID) para el login
             public bool anonimo { get; set; }
         }
 
-
-        // Delete user
-        [HttpDelete("delete-usuario/{id}")]
-        public async Task<IActionResult> DeleteUsuario(int id)
+        public class UsuarioRequestEdit
         {
-        
-            
-          var usuario = await _context.Usuario.FindAsync(id);
-
- 
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-           
-    
-
-            _context.Usuario.Remove(usuario);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        
-            }
-
-        [HttpPut("update-usuario/{id}")]
-       // Necesito que solo tome Rol y Unidad y solo modifique eso de la BD
-       public async Task<IActionResult> UpdateUsuario(int id, [FromBody] UsuarioRequestEdit request)
-        {
-            var usuario = await _context.Usuario.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            usuario.Rol = request.Rol;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(usuario);
-        }
-
-
-
-
-        private string GenerarToken(Usuario usuario)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ClaveSuperSecreta"));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-        new Claim(ClaimTypes.Name, usuario.Usuario_repo)
-    };
-
-            var token = new JwtSecurityToken(
-                issuer: "policia-digital",
-                audience: "tu-app",
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(24),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public class UsuarioRequestEdit{ 
-
             public string Rol { get; set; }
         }
+
+        public interface IApiUserData
+        {
+            string Nombre { get; }
+            string Apellido { get; }
+            string Usuario { get; }
+            int Id { get; }
+        }
+
+        // Clase auxiliar para mapear los datos de Civil
+        public class CivilApiData : IApiUserData
+        {
+            public int Id { get; set; }
+            public string Usuario { get; set; }
+            public CivilData Civil { get; set; } // Referencia al objeto CivilData real
+
+            // Implementación explícita de la interfaz
+            string IApiUserData.Nombre => Civil?.Nombre;
+            string IApiUserData.Apellido => Civil?.Apellido;
+            string IApiUserData.Usuario => Usuario;
+            int IApiUserData.Id => Id;
+        }
+
+        // Clase auxiliar para mapear los datos de Policia
+        public class PoliApiData : IApiUserData
+        {
+            public int Id { get; set; }
+            public string Usuario { get; set; }
+            public PersonaData Persona { get; set; } // Referencia al objeto PersonaData real
+
+            // Implementación explícita de la interfaz
+            string IApiUserData.Nombre => Persona?.Nombre;
+            string IApiUserData.Apellido => Persona?.Apellido;
+            string IApiUserData.Usuario => Usuario;
+            int IApiUserData.Id => Id;
+        }
+       
+       
 
         public class UsuarioRequest
         {
@@ -411,17 +450,12 @@ namespace FondoUnicoSistemaCompleto.Controllers
             public string tipoUsuario { get; set; }
         }
 
-        public class UsuarioPoliciaResponse {          
+        /* Estas clases representan las respuestas exactas de la API externa.
+         Las interfaces IApiUserData y las clases CivilApiData/PoliApiData se encargan de
+         mapear estas respuestas a un formato común para tu aplicación.
+        */
 
-        public string Code { get; set; }
-        public string Msg { get; set; }
-        public UsuarioPoliciaData Data { get; set; }
-
-
-    }
-
-
-    public class UsuarioResponse
+        public class UsuarioResponse
         {
             public string Code { get; set; }
             public string Msg { get; set; }
@@ -434,20 +468,28 @@ namespace FondoUnicoSistemaCompleto.Controllers
             public string Usuario { get; set; }
             public RolData Rol { get; set; }
             public bool Policia { get; set; }
-            public object Persona { get; set; } // Puede ser `null`, así que lo dejamos como `object`
+            public object Persona { get; set; } // Puede ser `null` para civiles
             public CivilData Civil { get; set; }
         }
-        public class UsuarioPoliciaData
+
+        public class PoliResponse
+        {
+            public string Code { get; set; }
+            public string Msg { get; set; }
+            public PoliUsuarioData Data { get; set; }
+        }
+
+        public class PoliUsuarioData
         {
             public int Id { get; set; }
             public string Usuario { get; set; }
             public RolData Rol { get; set; }
             public bool Policia { get; set; }
-            public CivilData Persona { get; set; } // Puede ser `null`, así que lo dejamos como `object`
-            public object Civil { get; set; }
+            public PersonaData Persona { get; set; } // Datos del policía
+            public object Civil { get; set; } // En este caso, `null`
         }
 
-
+        // Las siguientes clases son sub-objetos de las respuestas de la API externa
         public class RolData
         {
             public int Id { get; set; }
@@ -472,24 +514,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
             public DateTime CreatedAt { get; set; }
         }
 
-
-        public class PoliResponse
-        {
-            public string Code { get; set; }
-            public string Msg { get; set; }
-            public PoliUsuarioData Data { get; set; }
-        }
-
-        public class PoliUsuarioData
-        {
-            public int Id { get; set; }
-            public string Usuario { get; set; }
-            public RolData Rol { get; set; }
-            public bool Policia { get; set; }
-            public PersonaData Persona { get; set; } // Datos del policía
-            public object Civil { get; set; } // En este caso, `null`
-        }
-      
         public class PersonaData
         {
             public int Id { get; set; }
@@ -523,9 +547,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
             public string Nombre { get; set; }
             public int Activo { get; set; }
         }
-
-
-
 
         private bool UsuarioExists(int id)
         {

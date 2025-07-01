@@ -49,7 +49,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         // Agrega una petición que sea del formato api/Entregas/Unidad/FechaInicio/FechaFinal, es decir que se pueda pasar Unidad, FechaInicio y FechaFinal en los params
 
         [HttpGet("{unidad}/{fechaInicio}/{fechaFinal}/{tipoFormulario?}")]
-       // [Authorize]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Entregas>>> GetEntregasPorUnidadFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal, string? tipoFormulario = null)
         {
             var query = _context.Entregas

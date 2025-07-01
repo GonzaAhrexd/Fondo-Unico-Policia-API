@@ -33,7 +33,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // Haz un get por Unidad y Fecha 
         [HttpGet("{unidad}/{fecha}/{tipo}/{anulado}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Get(string unidad, DateTime fecha, string tipo, Boolean anulado)
         {
             var query = _context.Verificaciones

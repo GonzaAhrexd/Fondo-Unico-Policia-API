@@ -92,7 +92,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
       
         [HttpGet("total-por-fecha/{fechaInicio}/{fechaFinal}/{unidad}/{tipoFormulario}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Depositos>>> GetTotalDepositosPorFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal, string tipoFormulario)
         {
             if(unidad == "Listar todo")
@@ -113,7 +113,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
         }
 
         [HttpGet("cantidad-por-fecha/{fechaInicio}/{fechaFinal}/{unidad}/{tipoFormulario}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Depositos>>> GetCantidadDepositosPorFecha(string unidad, DateTime fechaInicio, DateTime fechaFinal, string tipoFormulario)
         {
 
@@ -158,7 +158,7 @@ namespace FondoUnicoSistemaCompleto.Controllers
 
         // DELETE: api/Depositos/5
         [HttpDelete("{id}")]
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> DeleteDepositos(int id)
         {
             var depositos = await _context.Depositos.FindAsync(id);
