@@ -78,41 +78,6 @@ namespace FondoUnicoSistemaCompleto.Controllers
             return NoContent();
         }
 
-        // Dentro de un controlador, después de que el usuario esté autenticado
-        [HttpGet("mi-info")]
-        [Authorize(Roles = "Administrador")] // Asegura que haya un usuario autenticado
-        public IActionResult GetMyInfo()
-        {
-            // Acceder al ClaimsPrincipal del usuario actual
-            var currentUser = HttpContext.User;
-
-            // Obtener claims específicos:
-
-            // ID del usuario (ClaimTypes.NameIdentifier es un claim común para esto)
-            var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            // Nombre del usuario (ClaimTypes.Name o "name")
-            var userName = currentUser.FindFirst(ClaimTypes.Name)?.Value;
-
-            // Email del usuario (ClaimTypes.Email o "email")
-            var userEmail = currentUser.FindFirst(ClaimTypes.Email)?.Value;
-
-            // Roles del usuario (ClaimTypes.Role o "role")
-            var userRoles = currentUser.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
-
-            // Puedes iterar sobre todos los claims para ver qué hay disponible
-            var allClaims = currentUser.Claims.Select(c => new { Type = c.Type, Value = c.Value }).ToList();
-
-            return Ok(new
-            {
-                UserId = userId,
-                UserName = userName,
-                UserEmail = userEmail,
-                UserRoles = userRoles,
-                AllClaims = allClaims // Para depuración, muestra todo
-            });
-        }
-
         // POST: api/Arqueos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
